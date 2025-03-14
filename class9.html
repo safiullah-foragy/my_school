@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 9 - School Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #695c97;
+            color: rgb(173, 45, 13);
+            padding: 25px 0;
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slideRight 10s linear infinite;
+            left: 120px;
+        }
+        @keyframes slideRight {
+            0% {
+                left: 120px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        nav {
+            background-color: #290808;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .group-info {
+            width: 30%;
+        }
+        .group-info h3 {
+            margin-top: 0;
+        }
+        .result-search {
+            width: 30%;
+            text-align: center;
+        }
+        .result-search form {
+            display: inline-block;
+            text-align: left;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="school-logo.png" class="school-logo">
+        <h1>Rayapur Sayed Abdul Latif Secondary School, Nalchity, Jhalokathi</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="admin">Admin</a>
+        <a href="teachers.html">Teachers Introduction</a>
+        <a href="alumnistudent.html">Alumni Students</a>
+        <a href="library.html">Library</a>
+        <a href="lab.html">Lab</a>
+        <a href="#class6">Class 6</a>
+        <a href="#class7">Class 7</a>
+        <a href="#class8">Class 8</a>
+        <a href="class9.html">Class 9</a>
+        <a href="#class10">Class 10</a>
+        <a href="managing-committee.html">Managing Committee</a>
+    </nav>
+
+    <main class="main-content">
+        <!-- Left Side: Science Group -->
+        <div class="group-info">
+            <h2>Science Group</h2>
+            <p>Number of Boys: <strong>25</strong></p>
+            <p>Number of Girls: <strong>20</strong></p>
+            <p>Fourth Subjects:</p>
+            <ul>
+                <li>Physics</li>
+                <li>Chemistry</li>
+                <li>Biology</li>
+                <li>Higher Mathematics</li>
+            </ul>
+        </div>
+
+        <!-- Middle: Arts Group -->
+        <div class="group-info">
+            <h2>Arts Group</h2>
+            <p>Number of Boys: <strong>15</strong></p>
+            <p>Number of Girls: <strong>18</strong></p>
+            <p>Fourth Subjects:</p>
+            <ul>
+                <li>History</li>
+                <li>Geography</li>
+                <li>Economics</li>
+                <li>Sociology</li>
+            </ul>
+        </div>
+
+        <!-- Right Side: Commerce Group and Result Search -->
+        <div class="group-info">
+            <h2>Commerce Group</h2>
+            <p>Number of Boys: <strong>20</strong></p>
+            <p>Number of Girls: <strong>22</strong></p>
+            <p>Fourth Subjects:</p>
+            <ul>
+                <li>Accounting</li>
+                <li>Business Studies</li>
+                <li>Economics</li>
+                <li>Finance</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Result Search Box at the Bottom -->
+    <div class="result-search">
+        <h2>Result Search</h2>
+        <form>
+            <label for="student-id">Student ID:</label>
+            <input type="text" id="student-id" name="student-id" placeholder="Enter Student ID" required>
+            <br><br>
+            <label for="exam-criteria">Exam Criteria:</label>
+            <select id="exam-criteria" name="exam-criteria" required>
+                <option value="">Select Exam</option>
+                <option value="mid-term">Mid-Term Exam</option>
+                <option value="final-term">Final-Term Exam</option>
+                <option value="annual">Annual Exam</option>
+            </select>
+            <br><br>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 School Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
