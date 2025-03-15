@@ -11,7 +11,7 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh; /* Ensure the body takes at least the full viewport height */
         }
         header {
             background-color: #695c97;
@@ -27,7 +27,7 @@
         .school-logo {
             width: 150px;
             height: 150px;
-            border-radius: 200%;
+            border-radius: 50%;
             margin-left: 20px;
         }
         header h1 {
@@ -64,8 +64,8 @@
             background-color: #575757;
         }
         .main-content {
-            flex-grow: 1;
             position: relative;
+            height: 100vh; /* Full viewport height for the animated background section */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -97,51 +97,100 @@
                 background-image: url('images/image1.jpg');
             }
         }
-       
         .notice-box {
-    position: absolute;
-    top: 20px; 
-    right: 20px; 
-    width: 600px;
-    padding: 55px;
-    border-radius: 20px;
-    background-color: transparent; 
-    border: 3px solid rgba(101, 75, 75, 0.5);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center; 
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 600px;
+            padding: 55px;
+            border-radius: 20px;
+            background-color: transparent;
+            border: 3px solid rgba(101, 75, 75, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .notice-box h2 {
             margin: 0 0 15px 0;
             font-size: 30px;
-            color: #c87817; 
+            color: #c87817;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         .notice-box p {
             margin: 0 0 10px 0;
             font-size: 20px;
-            color: #000000; 
+            color: #000000;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            white-space: nowrap; 
-            overflow: hidden; 
+            white-space: nowrap;
+            overflow: hidden;
             position: relative;
-            animation: slideInOut 15s linear infinite; 
+            animation: slideInOut 15s linear infinite;
         }
         @keyframes slideInOut {
             0% {
                 transform: translateX(100%);
             }
             20% {
-                transform: translateX(0); 
+                transform: translateX(0);
             }
             80% {
-                transform: translateX(0); 
+                transform: translateX(0);
             }
             100% {
-                transform: translateX(100%); 
+                transform: translateX(100%);
             }
+        }
+        .additional-content {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .intro-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .intro-section img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .intro-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .intro-section p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .national-flag {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .national-flag img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .national-flag h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .national-flag p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
         }
         footer {
             background-color: #333;
@@ -174,14 +223,47 @@
     </nav>
 
     <div class="main-content">
-       
-
         <div class="notice-box">
             <h2>Notice Board</h2>
-            <p>1. School will remain closed on  25th December.</p>
+            <p>1. School will remain closed on 25th December.</p>
             <p>2. Parent-teacher meeting on 30th December.</p>
-            <p>3. Annual sports day on   15th January.</p>
-            <p>4. Submit your projects by   20th December.</p>
+            <p>3. Annual sports day on 15th January.</p>
+            <p>4. Submit your projects by 20th December.</p>
+        </div>
+    </div>
+
+  
+    <div class="additional-content">
+        <div class="intro-section">
+            <h2>Welcome to Our School</h2>
+            <img src="images/school-building1.jpg" alt="School Building">
+            <p>Rayapur Sayed Abdul Latif Secondary School is one of the most prestigious educational institutions in Nalchity, Jhalokathi. Established in 1950, our school has been providing quality education to students for over 70 years.</p>
+        </div>
+
+        <div class="intro-section">
+            <img src="images/school-building2.jpg" alt="School Building">
+            <p>Our school campus is spread over 5 acres of land, providing a serene and conducive environment for learning. The campus includes well-equipped classrooms, a library, science labs, and sports facilities.</p>
+        </div>
+
+        <div class="intro-section">
+            <img src="images/school-building3.jpg" alt="School Building">
+            <p>We have a highly qualified and dedicated team of teachers who are committed to nurturing the potential of every student. Our curriculum is designed to foster intellectual growth, creativity, and critical thinking.</p>
+        </div>
+
+        <div class="intro-section">
+            <img src="images/school-building4.jpg" alt="School Building">
+            <p>Our school also emphasizes extracurricular activities, including sports, music, art, and drama, to ensure the holistic development of our students.</p>
+        </div>
+
+        <div class="intro-section">
+            <img src="images/school-building5.jpg" alt="School Building">
+            <p>We take pride in our alumni, who have excelled in various fields, including education, business, and public service. Our school continues to strive for excellence in all areas.</p>
+        </div>
+
+        <div class="national-flag">
+            <h2>National Flag of Bangladesh</h2>
+            <img src="images/national-flag.jpg" alt="National Flag">
+            <p>The national flag of Bangladesh consists of a red disc on a green field. The red disc represents the sun rising over Bengal, and the green field symbolizes the lushness of the land of Bangladesh. The flag was adopted on 17th January 1972.</p>
         </div>
     </div>
 
