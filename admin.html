@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System - Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #695c97;
+            color: rgb(209, 156, 142);
+            padding: 25px 0;
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slideRight 10s linear infinite;
+            left: 120px;
+        }
+        @keyframes slideRight {
+            0% {
+                left: 120px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        nav {
+            background-color: #290808;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #695c97;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: #575757;
+        }
+        .notice-update-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        .notice-update-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .notice-update-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        .notice-update-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #695c97;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .notice-update-container input[type="submit"]:hover {
+            background-color: #575757;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/school-logo.png" class="school-logo">
+        <h1>Rayapur Sayed Abdul Latif Secondary School, Nalchity, Jhalokathi</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="admin.html">Admin</a>
+        <a href="teachers.html">Teachers Introduction</a>
+        <a href="alumnistudent.html">Alumni Students</a>
+        <a href="library.html">Library</a>
+        <a href="lab.html">Lab</a>
+        <a href="class6.html">Class 6</a>
+        <a href="class7.html">Class 7</a>
+        <a href="class8.html">Class 8</a>
+        <a href="class9.html">Class 9</a>
+        <a href="class10.html">Class 10</a>
+        <a href="managing-committee.html">Managing Committee</a>
+    </nav>
+
+    <div class="login-container" id="loginContainer">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <div class="notice-update-container" id="noticeUpdateContainer">
+        <h2>Update Notice</h2>
+        <form id="noticeUpdateForm">
+            <textarea id="noticeText" rows="10" placeholder="Enter new notice..."></textarea>
+            <input type="submit" value="Update Notice">
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Rayapur Sayed Abdul Latif Secondary School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const noticeUpdateContainer = document.getElementById('noticeUpdateContainer');
+        const loginContainer = document.getElementById('loginContainer');
+
+        const defaultUsername = "admin";
+        const defaultPassword = "admin123";
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === defaultUsername && password === defaultPassword) {
+                loginContainer.style.display = 'none';
+                noticeUpdateContainer.style.display = 'block';
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+
+        const noticeUpdateForm = document.getElementById('noticeUpdateForm');
+        noticeUpdateForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const noticeText = document.getElementById('noticeText').value;
+            if (noticeText.trim() !== "") {
+                // Here you can add code to update the notice on the home page
+                alert('Notice updated successfully!');
+                // For example, you can send the noticeText to the server or update it in localStorage
+            } else {
+                alert('Please enter a valid notice.');
+            }
+        });
+    </script>
+</body>
+</html>
