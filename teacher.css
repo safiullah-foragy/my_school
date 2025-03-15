@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #695c97;
+    color: rgb(209, 156, 142);
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.ex-teacher-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: rgb(191, 168, 168);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ex-teacher-icon:hover {
+    color: #ffcc00;
+}
+
+.ex-teacher-icon::after {
+    content: "Former Teachers";
+    font-size: 16px;
+    color: rgb(67, 63, 63);
+}
+
+.back-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: rgb(185, 173, 173);
+    text-decoration: none;
+}
+
+.back-icon:hover {
+    color: #ffcc00;
+}
+
+.head-teacher-profile {
+    background-color: #dfd0d0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.head-teacher-profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.head-teacher-profile h2 {
+    margin: 10px 0 5px;
+    font-size: 24px;
+    color: #333;
+}
+
+.head-teacher-profile p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.teacher-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.teacher-profile {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-profile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.teacher-profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.teacher-profile h2 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    color: #333;
+}
+
+.teacher-profile p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}

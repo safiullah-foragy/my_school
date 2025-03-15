@@ -4,112 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Managing Committee - School Management System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh; 
-        }
-        header {
-            background-color: #695c97;
-            color: rgb(209, 156, 142);
-            padding: 25px 0;
-            text-align: left; 
-            overflow: hidden; 
-            position: relative; 
-            height: 100px; 
-            display: flex;
-            align-items: center; 
-        }
-        .school-logo {
-            width: 150px; 
-            height: 150px;
-            border-radius: 50%; 
-            margin-left: 20px; 
-        }
-        header h1 {
-            margin: 0; 
-            padding-left: 20px; 
-            white-space: nowrap;
-            position: absolute; 
-            top: 50%; /* Center vertically */
-            transform: translateY(-50%); 
-            animation: slideRight 10s linear infinite;
-            left: 120px; 
-        }
-        @keyframes slideRight {
-            0% {
-                left: 120px; 
-            }
-            100% {
-                left: 100%; 
-            }
-        }
-        nav {
-            background-color: #290808;
-            overflow: hidden;
-        }
-        nav a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        nav a:hover {
-            background-color: #575757;
-        }
-        .main-content {
-            flex-grow: 1; 
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .committee-profiles {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .profile-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .profile-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
-        .profile-card h3 {
-            margin: 10px 0 5px;
-            font-size: 18px;
-            color: #333;
-        }
-        .profile-card p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="managing-committee.css">
 </head>
 <body>
     <header>
-        <img src="images/school-logo.png" class="school-logo"> 
+        <img src="images/school-logo.png" class="school-logo">
         <h1>Rayapur Sayed Abdul Latif Secondary School, Nalchity, Jhalokathi</h1>
     </header>
 
@@ -131,41 +30,36 @@
     <div class="main-content">
         <h2>Managing Committee</h2>
         <div class="committee-profiles">
-           
             <div class="profile-card">
-                <img src="profile1.jpg" alt="John Doe">
-                <h3>Mr</h3>
+                <img src="images/profile1.jpg" alt="John Doe">
+                <h3>Mr. John Doe</h3>
                 <p>Chairman</p>
-                <p>Email: @example.com</p>
+                <p>Email: john.doe@example.com</p>
                 <p>Phone: +123 456 7890</p>
             </div>
-          
             <div class="profile-card">
-                <img src="profile2.jpg" alt="Jane Smith">
+                <img src="images/profile2.jpg" alt="Jane Smith">
                 <h3>Mrs. Jane Smith</h3>
                 <p>Vice Chairman</p>
                 <p>Email: jane.smith@example.com</p>
                 <p>Phone: +123 456 7891</p>
             </div>
-         
             <div class="profile-card">
-                <img src="profile3.jpg" alt="Robert Brown">
+                <img src="images/profile3.jpg" alt="Robert Brown">
                 <h3>Mr. Robert Brown</h3>
                 <p>Secretary</p>
                 <p>Email: robert.brown@example.com</p>
                 <p>Phone: +123 456 7892</p>
             </div>
-         
             <div class="profile-card">
-                <img src="profile4.jpg" alt="Emily Davis">
+                <img src="images/profile4.jpg" alt="Emily Davis">
                 <h3>Mrs. Emily Davis</h3>
                 <p>Treasurer</p>
                 <p>Email: emily.davis@example.com</p>
                 <p>Phone: +123 456 7893</p>
             </div>
-          
             <div class="profile-card">
-                <img src="profile5.jpg" alt="Michael Wilson">
+                <img src="images/profile5.jpg" alt="Michael Wilson">
                 <h3>Mr. Michael Wilson</h3>
                 <p>Member</p>
                 <p>Email: michael.wilson@example.com</p>
@@ -175,7 +69,7 @@
     </div>
 
     <footer>
-        
+        <p>&copy; 2023 School Management System. All rights reserved.</p>
     </footer>
 </body>
 </html>
