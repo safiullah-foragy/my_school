@@ -11,41 +11,41 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh; 
+            height: 100vh;
         }
         header {
             background-color: #695c97;
-            color: rgb(173, 45, 13);
+            color: rgb(209, 156, 142);
             padding: 25px 0;
-            text-align: left; 
-            overflow: hidden; 
-            position: relative; 
-            height: 100px; 
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
             display: flex;
-            align-items: center; 
+            align-items: center;
         }
         .school-logo {
-            width: 150px; 
+            width: 150px;
             height: 150px;
-            border-radius: 200%; 
-            margin-left: 20px; 
+            border-radius: 200%;
+            margin-left: 20px;
         }
         header h1 {
-            margin: 0; 
-            padding-left: 20px; 
+            margin: 0;
+            padding-left: 20px;
             white-space: nowrap;
-            position: absolute; 
-            top: 50%; /* Center vertically */
-            transform: translateY(-50%); 
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             animation: slideRight 10s linear infinite;
-            left: 120px; 
+            left: 120px;
         }
         @keyframes slideRight {
             0% {
-                left: 120px; 
+                left: 120px;
             }
             100% {
-                left: 100%; 
+                left: 100%;
             }
         }
         nav {
@@ -64,41 +64,84 @@
             background-color: #575757;
         }
         .main-content {
-            flex-grow: 1; 
-            background-image: url('images/school-image.jpg');
-            background-size: cover; 
-            background-position: center; 
+            flex-grow: 1;
+            position: relative;
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
-            position: relative; 
+            animation: changeBackground 30s infinite;
         }
-        .message {
-            position: absolute;
-            top: 20px; 
-            left: 20px; 
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff; 
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+        @keyframes changeBackground {
+            0% {
+                background-image: url('images/image1.jpg');
+            }
+            14.28% {
+                background-image: url('images/image2.jpg');
+            }
+            28.56% {
+                background-image: url('images/image3.jpg');
+            }
+            42.84% {
+                background-image: url('images/image4.jpg');
+            }
+            57.12% {
+                background-image: url('images/image5.jpg');
+            }
+            71.4% {
+                background-image: url('images/image6.jpg');
+            }
+            85.68% {
+                background-image: url('images/image7.jpg');
+            }
+            100% {
+                background-image: url('images/image1.jpg');
+            }
         }
+       
         .notice-box {
-            position: absolute;
-            top: 20px; 
-            right: 20px; 
-            width: 500px; 
-            background-color: rgba(255, 255, 255, 0.9); 
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-        }
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+    width: 600px;
+    padding: 55px;
+    border-radius: 20px;
+    background-color: transparent; 
+    border: 3px solid rgba(101, 75, 75, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
         .notice-box h2 {
             margin: 0 0 15px 0;
-            font-size: 24px; 
-            color: #333;
+            font-size: 30px;
+            color: #c87817; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         .notice-box p {
             margin: 0 0 10px 0;
-            font-size: 16px; 
-            color: #555;
+            font-size: 20px;
+            color: #000000; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            overflow: hidden; 
+            position: relative;
+            animation: slideInOut 15s linear infinite; 
+        }
+        @keyframes slideInOut {
+            0% {
+                transform: translateX(100%);
+            }
+            20% {
+                transform: translateX(0); 
+            }
+            80% {
+                transform: translateX(0); 
+            }
+            100% {
+                transform: translateX(100%); 
+            }
         }
         footer {
             background-color: #333;
@@ -111,40 +154,39 @@
 </head>
 <body>
     <header>
-        <img src="images/school-logo.png" class="school-logo"> 
+        <img src="images/school-logo.png" class="school-logo">
         <h1>Rayapur Sayed Abdul Latif Secondary School, Nalchity, Jhalokathi</h1>
     </header>
 
     <nav>
-            <a href="index.html">Home</a>
-            <a href="admin">Admin</a>
-            <a href="teachers.html">Teachers Introduction</a>
-            <a href="alumnistudent.html">Alumni Students</a>
-            <a href="library.html">Library</a>
-            <a href="lab.html">Lab</a>
-            <a href="class6.html">Class 6</a>
-            <a href="class7.html">Class 7</a>
-            <a href="class8.html">Class 8</a>
-            <a href="class9.html">Class 9</a> <!-- Correct link -->
-            <a href="class10.html">Class 10</a>
-            <a href="managing-committee.html">Managing Committee</a>
-        </nav>
-  
+        <a href="index.html">Home</a>
+        <a href="admin.html">Admin</a>
+        <a href="teachers.html">Teachers Introduction</a>
+        <a href="alumnistudent.html">Students</a>
+        <a href="library.html">Library</a>
+        <a href="lab.html">Lab</a>
+        <a href="class6.html">Class 6</a>
+        <a href="class7.html">Class 7</a>
+        <a href="class8.html">Class 8</a>
+        <a href="class9.html">Class 9</a>
+        <a href="class10.html">Class 10</a>
+        <a href="managing-committee.html">Managing Committee</a>
+    </nav>
 
     <div class="main-content">
-        <p class="message">Education is the backbone of the nation.</p>
+       
 
         <div class="notice-box">
             <h2>Notice Board</h2>
-            <p>1. School will remain closed on 25th December.</p>
+            <p>1. School will remain closed on  25th December.</p>
             <p>2. Parent-teacher meeting on 30th December.</p>
-            <p>3. Annual sports day on 15th January.</p>
-            <p>4. Submit your projects by 20th December.</p>
+            <p>3. Annual sports day on   15th January.</p>
+            <p>4. Submit your projects by   20th December.</p>
         </div>
     </div>
 
     <footer>
-        
+      
     </footer>
 </body>
 </html>
