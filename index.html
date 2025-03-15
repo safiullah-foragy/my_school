@@ -11,7 +11,7 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; 
+            min-height: 100vh;
         }
         header {
             background-color: #695c97;
@@ -65,36 +65,54 @@
         }
         .main-content {
             position: relative;
-            height: 100vh; 
+            height: 100vh;
+            overflow: hidden;
+        }
+        .background-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            animation: changeBackground 30s infinite;
+            opacity: 0;
+            animation: backgroundFade 30s infinite;
         }
-        @keyframes changeBackground {
-            0% {
-                background-image: url('images/image1.jpg');
+        .background-slider:nth-child(1) {
+            background-image: url('images/image1.jpg');
+            animation-delay: 0s;
+        }
+        .background-slider:nth-child(2) {
+            background-image: url('images/image2.jpg');
+            animation-delay: 5s;
+        }
+        .background-slider:nth-child(3) {
+            background-image: url('images/image3.jpg');
+            animation-delay: 10s;
+        }
+        .background-slider:nth-child(4) {
+            background-image: url('images/image4.jpg');
+            animation-delay: 15s;
+        }
+        .background-slider:nth-child(5) {
+            background-image: url('images/image5.jpg');
+            animation-delay: 20s;
+        }
+        .background-slider:nth-child(6) {
+            background-image: url('images/image6.jpg');
+            animation-delay: 25s;
+        }
+        .background-slider:nth-child(7) {
+            background-image: url('images/image7.jpg');
+            animation-delay: 30s;
+        }
+        @keyframes backgroundFade {
+            0%, 100% {
+                opacity: 0;
             }
-            14.28% {
-                background-image: url('images/image2.jpg');
-            }
-            28.56% {
-                background-image: url('images/image3.jpg');
-            }
-            42.84% {
-                background-image: url('images/image4.jpg');
-            }
-            57.12% {
-                background-image: url('images/image5.jpg');
-            }
-            71.4% {
-                background-image: url('images/image6.jpg');
-            }
-            85.68% {
-                background-image: url('images/image7.jpg');
-            }
-            100% {
-                background-image: url('images/image1.jpg');
+            10%, 90% {
+                opacity: 1;
             }
         }
         .notice-box {
@@ -111,6 +129,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 1;
         }
         .notice-box h2 {
             margin: 0 0 15px 0;
@@ -145,6 +164,8 @@
         .additional-content {
             padding: 40px 20px;
             background-color: #f9f9f9;
+            position: relative;
+            z-index: 1;
         }
         .intro-section {
             margin-bottom: 40px;
@@ -198,6 +219,8 @@
             text-align: center;
             padding: 10px 0;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
@@ -223,6 +246,14 @@
     </nav>
 
     <div class="main-content">
+        <div class="background-slider"></div>
+        <div class="background-slider"></div>
+        <div class="background-slider"></div>
+        <div class="background-slider"></div>
+        <div class="background-slider"></div>
+        <div class="background-slider"></div>
+        <div class="background-slider"></div>
+
         <div class="notice-box">
             <h2>Notice Board</h2>
             <p>1. School will remain closed on 25th December.</p>
@@ -232,7 +263,6 @@
         </div>
     </div>
 
-  
     <div class="additional-content">
         <div class="intro-section">
             <h2>Welcome to Our School</h2>
@@ -268,7 +298,7 @@
     </div>
 
     <footer>
-      
+        <p>&copy; 2023 Rayapur Sayed Abdul Latif Secondary School. All rights reserved.</p>
     </footer>
 </body>
 </html>
