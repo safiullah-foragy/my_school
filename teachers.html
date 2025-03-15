@@ -27,7 +27,7 @@
             top: 20px;
             right: 20px;
             font-size: 24px;
-            color: white;
+            color: rgb(191, 168, 168);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -39,18 +39,44 @@
         .ex-teacher-icon::after {
             content: "Former Teachers";
             font-size: 16px;
-            color: white;
+            color: rgb(67, 63, 63);
         }
         .back-icon {
             position: absolute;
             top: 20px;
             left: 20px;
             font-size: 24px;
-            color: white;
+            color: rgb(185, 173, 173);
             text-decoration: none;
         }
         .back-icon:hover {
             color: #ffcc00;
+        }
+        .head-teacher-profile {
+            background-color: #dfd0d0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .head-teacher-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .head-teacher-profile h2 {
+            margin: 10px 0 5px;
+            font-size: 24px;
+            color: #333;
+        }
+        .head-teacher-profile p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
         }
         .teacher-container {
             display: flex;
@@ -66,6 +92,11 @@
             padding: 20px;
             width: 200px;
             text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .teacher-profile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .teacher-profile img {
             width: 100px;
@@ -95,52 +126,60 @@
 <body>
     <header>
         <h1>Teachers Introduction</h1>
-       
-        <a href="home.html" class="back-icon" title="Back to Home">⬅️</a>
-       
+        <a href="index.html" class="back-icon" title="Back to Home">⬅️</a>
         <a href="ex-teachers.html" class="ex-teacher-icon" title="Former Teachers">👨‍🏫</a>
     </header>
 
+    
+    <div class="head-teacher-profile">
+        <img src="images/head-teacher.jpg" alt="Head Teacher">
+        <h2>Mr. John Doe</h2>
+        <p>Phone: +123 456 7890</p>
+        <p>Email: john.doe@example.com</p>
+        <p>Position: Head Teacher</p>
+    </div>
+
+  
     <div class="teacher-container">
-       
+     
         <div class="teacher-profile">
-            <img src="teacher1.jpg" alt="Teacher 1">
+            <img src="images/teacher1.jpg" alt="Teacher 1">
             <h2>Jo</h2>
             <p>Phone: +123 456 7890</p>
             <p>Subject: Mathematics</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher2.jpg" alt="Teacher 2">
+            <img src="images/teacher2.jpg" alt="Teacher 2">
             <h2>JSm</h2>
             <p>Phone: +123 456 7891</p>
             <p>Subject: Science</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher3.jpg" alt="Teacher 3">
+            <img src="images/teacher3.jpg" alt="Teacher 3">
             <h2>Abc</h2>
             <p>Phone: +123 456 7892</p>
             <p>Subject: English</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher4.jpg" alt="Teacher 4">
+            <img src="images/teacher4.jpg" alt="Teacher 4">
             <h2>Mic</h2>
             <p>Phone: +123 456 7893</p>
             <p>Subject: History</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher5.jpg" alt="Teacher 5">
+            <img src="images/teacher5.jpg" alt="Teacher 5">
             <h2>asdf</h2>
             <p>Phone: +123 456 7894</p>
             <p>Subject: Geography</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher6.jpg" alt="Teacher 6">
+            <img src="images/teacher6.jpg" alt="Teacher 6">
             <h2>hi</h2>
             <p>Phone: +123 456 7895</p>
             <p>Subject: Physics</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher7.jpg" alt="Teacher 7">
+            <img src="images/teacher7.jpg" alt="Teacher 7">
             <h2>fird</h2>
             <p>Phone: +123 456 7896</p>
             <p>Subject: Chemistry</p>
@@ -152,21 +191,161 @@
             <p>Subject: Biology</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher9.jpg" alt="Teacher 9">
+            <img src="images/teacher9.jpg" alt="Teacher 9">
             <h2>tanvir</h2>
             <p>Phone: +123 456 7898</p>
             <p>Subject: Computer Science</p>
         </div>
         <div class="teacher-profile">
-            <img src="teacher10.jpg" alt="Teacher 10">
+            <img src="images/teacher10.jpg" alt="Teacher 10">
             <h2>Robi</h2>
             <p>Phone: +123 456 7899</p>
             <p>Subject: Economics</p>
         </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher11.jpg" alt="Teacher 11">
+            <h2>Teacher 11</h2>
+            <p>Phone: +123 456 7900</p>
+            <p>Subject: Art</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher12.jpg" alt="Teacher 12">
+            <h2>Teacher 12</h2>
+            <p>Phone: +123 456 7901</p>
+            <p>Subject: Music</p>
+        </div>
+        
+        <div class="teacher-profile">
+            <img src="images/teacher13.jpg" alt="Teacher 13">
+            <h2>Teacher 13</h2>
+            <p>Phone: +123 456 7902</p>
+            <p>Subject: Physical Education</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher14.jpg" alt="Teacher 14">
+            <h2>Teacher 14</h2>
+            <p>Phone: +123 456 7903</p>
+            <p>Subject: Social Studies</p>
+        </div>
+     
+        <div class="teacher-profile">
+            <img src="images/teacher15.jpg" alt="Teacher 15">
+            <h2>Teacher 15</h2>
+            <p>Phone: +123 456 7904</p>
+            <p>Subject: Literature</p>
+        </div>
+    
+        <div class="teacher-profile">
+            <img src="images/teacher16.jpg" alt="Teacher 16">
+            <h2>Teacher 16</h2>
+            <p>Phone: +123 456 7905</p>
+            <p>Subject: Philosophy</p>
+        </div>
+       
+        <div class="teacher-profile">
+            <img src="images/teacher17.jpg" alt="Teacher 17">
+            <h2>Teacher 17</h2>
+            <p>Phone: +123 456 7906</p>
+            <p>Subject: Psychology</p>
+        </div>
+     
+        <div class="teacher-profile">
+            <img src="images/teacher18.jpg" alt="Teacher 18">
+            <h2>Teacher 18</h2>
+            <p>Phone: +123 456 7907</p>
+            <p>Subject: Sociology</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher19.jpg" alt="Teacher 19">
+            <h2>Teacher 19</h2>
+            <p>Phone: +123 456 7908</p>
+            <p>Subject: Political Science</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher20.jpg" alt="Teacher 20">
+            <h2>Teacher 20</h2>
+            <p>Phone: +123 456 7909</p>
+            <p>Subject: Business Studies</p>
+        </div>
+       
+        <div class="teacher-profile">
+            <img src="images/teacher21.jpg" alt="Teacher 21">
+            <h2>Teacher 21</h2>
+            <p>Phone: +123 456 7910</p>
+            <p>Subject: Accounting</p>
+        </div>
+       
+        <div class="teacher-profile">
+            <img src="images/teacher22.jpg" alt="Teacher 22">
+            <h2>Teacher 22</h2>
+            <p>Phone: +123 456 7911</p>
+            <p>Subject: Marketing</p>
+        </div>
+    
+        <div class="teacher-profile">
+            <img src="images/teacher23.jpg" alt="Teacher 23">
+            <h2>Teacher 23</h2>
+            <p>Phone: +123 456 7912</p>
+            <p>Subject: Finance</p>
+        </div>
+     
+        <div class="teacher-profile">
+            <img src="images/teacher24.jpg" alt="Teacher 24">
+            <h2>Teacher 24</h2>
+            <p>Phone: +123 456 7913</p>
+            <p>Subject: Statistics</p>
+        </div>
+     
+        <div class="teacher-profile">
+            <img src="images/teacher25.jpg" alt="Teacher 25">
+            <h2>Teacher 25</h2>
+            <p>Phone: +123 456 7914</p>
+            <p>Subject: Environmental Science</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher26.jpg" alt="Teacher 26">
+            <h2>Teacher 26</h2>
+            <p>Phone: +123 456 7915</p>
+            <p>Subject: Health Education</p>
+        </div>
+    
+        <div class="teacher-profile">
+            <img src="images/teacher27.jpg" alt="Teacher 27">
+            <h2>Teacher 27</h2>
+            <p>Phone: +123 456 7916</p>
+            <p>Subject: Home Economics</p>
+        </div>
+   
+        <div class="teacher-profile">
+            <img src="images/teacher28.jpg" alt="Teacher 28">
+            <h2>Teacher 28</h2>
+            <p>Phone: +123 456 7917</p>
+            <p>Subject: Religious Studies</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher29.jpg" alt="Teacher 29">
+            <h2>Teacher 29</h2>
+            <p>Phone: +123 456 7918</p>
+            <p>Subject: Ethics</p>
+        </div>
+      
+        <div class="teacher-profile">
+            <img src="images/teacher30.jpg" alt="Teacher 30">
+            <h2>Teacher 30</h2>
+            <p>Phone: +123 456 7919</p>
+            <p>Subject: Law</p>
+        </div>
     </div>
 
     <footer>
-      
+        
     </footer>
 </body>
 </html>

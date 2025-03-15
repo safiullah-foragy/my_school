@@ -4,17 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library - School Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #695c97;
+            color: rgb(209, 156, 142);
+            padding: 25px 0;
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 200%;
+            margin-left: 20px;
+        }
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slideRight 10s linear infinite;
+            left: 120px;
+        }
+        @keyframes slideRight {
+            0% {
+                left: 120px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        nav {
+            background-color: #290808;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .main-content {
+            flex-grow: 1;
+            position: relative;
+            background-image: url('images/library-background.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 20px;
+            color: #fff;
+        }
+        .librarian-profile {
+            background-color: transparent; 
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .librarian-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .librarian-profile h3 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .librarian-profile p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .message {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Library</h1>
+        <img src="images/school-logo.png" class="school-logo">
+        <h1>Rayapur Sayed Abdul Latif Secondary School, Nalchity, Jhalokathi</h1>
     </header>
 
     <nav>
         <a href="index.html">Home</a>
         <a href="admin.html">Admin</a>
         <a href="teachers.html">Teachers Introduction</a>
-        <a href="alumnistudent.html">Students</a>
+        <a href="alumnistudent.html">Alumni Students</a>
         <a href="library.html">Library</a>
         <a href="lab.html">Lab</a>
         <a href="class6.html">Class 6</a>
@@ -25,59 +137,17 @@
         <a href="managing-committee.html">Managing Committee</a>
     </nav>
 
-    <main>
-        <!-- Librarian Profile -->
-        <section>
-            <h2>Librarian Profile</h2>
-            <div>
-                <img src="images/librarian.jpg" alt="Librarian" width="150" height="150">
-                <h3>Ms. Sarah Johnson</h3>
-                <p>Phone: +123 456 7890</p>
-                <p>Email: sarah.johnson@example.com</p>
-            </div>
-        </section>
+    <div class="main-content">
+        <p class="message">Knowledge is Power</p>
 
-        <!-- Book List Table -->
-        <section>
-            <h2>Book List</h2>
-            <table border="1" cellpadding="10" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Book Name</th>
-                        <th>Author</th>
-                        <th>Availability</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>To Kill a Mockingbird</td>
-                        <td>Harper Lee</td>
-                        <td>Available</td>
-                    </tr>
-                    <tr>
-                        <td>1984</td>
-                        <td>George Orwell</td>
-                        <td>Not Available</td>
-                    </tr>
-                    <tr>
-                        <td>Pride and Prejudice</td>
-                        <td>Jane Austen</td>
-                        <td>Available</td>
-                    </tr>
-                    <tr>
-                        <td>The Great Gatsby</td>
-                        <td>F. Scott Fitzgerald</td>
-                        <td>Available</td>
-                    </tr>
-                    <tr>
-                        <td>Moby Dick</td>
-                        <td>Herman Melville</td>
-                        <td>Not Available</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+     
+        <div class="librarian-profile">
+            <img src="images/librarian.jpg" alt="Librarian">
+            <h3>Most. Selina Begum</h3>
+            <p>Phone: +123 456 7890</p>
+            <p>Email: nope@example.com</p>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2023 School Management System. All rights reserved.</p>
