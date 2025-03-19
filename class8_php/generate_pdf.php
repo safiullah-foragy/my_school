@@ -1,5 +1,8 @@
 <?php
-require('class8_php/fpdf.php'); // Include FPDF library
+error_reporting(E_ALL); // Enable error reporting
+ini_set('display_errors', 1); // Display errors
+
+require('fpdf.php'); // Include FPDF library
 
 // Database connection
 $servername = "localhost";
@@ -13,17 +16,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Validate inputs
-if (!isset($_POST['exam_criteria']) || !isset($_POST['section_criteria']) || !isset($_POST['roll_criteria'])) {
-    die("Invalid input: Please provide all required fields.");
-}
-
-// Get search criteria
+// Get search criteria from POST data
 $exam_criteria = $_POST['exam_criteria'];
 $section_criteria = $_POST['section_criteria'];
 $roll_criteria = $_POST['roll_criteria'];
 
-// Fetch results
+// Fetch results from the database
 $sql = "SELECT * FROM results8 WHERE exam_type='$exam_criteria' AND section='$section_criteria' AND roll='$roll_criteria'";
 $result = $conn->query($sql);
 
@@ -63,8 +61,8 @@ if ($result->num_rows > 0) {
         $pdf->Ln();
     }
 
-    // Output PDF
-    $pdf->Output('D', "Result_$student_roll.pdf"); // 'D' forces download
+    // Output PDF for download
+    $pdf->Output('D', "Result_$student_roll.pdf");
 } else {
     echo "No results found";
 }
