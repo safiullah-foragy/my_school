@@ -87,7 +87,7 @@
             justify-content: space-between;
         }
 
-        .login-box, .insert-box, .result-box {
+        .login-box, .insert-box, .result-box, .delete-box {
             width: 30%;
             border: 1px solid #ccc;
             padding: 20px;
@@ -95,7 +95,7 @@
             background-color: #f9f9f9;
         }
 
-        .result-box {
+        .result-box, .delete-box {
             width: 65%;
         }
 
@@ -151,6 +151,19 @@
         th {
             background-color: #695c97;
             color: white;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
         }
     </style>
 </head>
@@ -221,6 +234,17 @@
             </form>
         </div>
 
+        <!-- Delete Box (Hidden by default) -->
+        <div class="delete-box" id="delete-box" style="display: none;">
+            <h2>Delete Result</h2>
+            <form id="delete-search-form">
+                <label for="delete-roll">Roll:</label>
+                <input type="text" id="delete-roll" name="delete-roll" placeholder="Enter Roll" required>
+                <button type="submit">Search</button>
+            </form>
+            <div id="delete-result-display"></div>
+        </div>
+
         <!-- Result Box -->
         <div class="result-box">
             <h2>Result Search</h2>
@@ -263,6 +287,7 @@
             .then(data => {
                 if (data === 'success') {
                     document.getElementById('insert-box').style.display = 'block';
+                    document.getElementById('delete-box').style.display = 'block';
                 } else {
                     alert('Invalid username or password');
                 }
@@ -299,6 +324,41 @@
             .then(data => {
                 document.getElementById('result-display').innerHTML = data;
             });
+        });
+
+        // Fetch and display results for deletion
+        document.getElementById('delete-search-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const roll = document.getElementById('delete-roll').value;
+
+            fetch('class6_php/fetch_results.php', {
+                method: 'POST',
+                body: new URLSearchParams({ roll }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('delete-result-display').innerHTML = data;
+            });
+        });
+
+        // Handle delete button click
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this record?')) {
+                    fetch('class6_php/delete.php', {
+                        method: 'POST',
+                        body: new URLSearchParams({ id }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data); // Show success or error message
+                        document.getElementById('delete-search-form').dispatchEvent(new Event('submit')); // Refresh the list
+                    });
+                }
+            }
         });
     </script>
 </body>
