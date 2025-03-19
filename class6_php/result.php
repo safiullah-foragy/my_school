@@ -1,30 +1,39 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "root"; // Replace with your database username
+$password = ""; // Replace with your database password
 $dbname = "class6";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Get form data
 $exam_criteria = $_POST['exam-criteria'];
 $section_criteria = $_POST['section-criteria'];
 $roll_criteria = $_POST['roll-criteria'];
 
+// Fetch result from the database
 $sql = "SELECT * FROM results WHERE exam_type='$exam_criteria' AND section='$section_criteria' AND roll='$roll_criteria'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     echo "<h3>Result for Roll: $roll_criteria</h3>";
     echo "<table>";
-    echo "<tr><th>Subject</th><th>Obtained Mark</th><th>Total Mark</th></tr>";
+    echo "<tr><th>Subject</th><th>Obtained Mark</th><th>Total Mark</th><th>Status</th></tr>"; // Added Status column
     while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>{$row['subject']}</td><td>{$row['obtained_mark']}</td><td>{$row['total_mark']}</td></tr>";
+        echo "<tr>
+                <td>{$row['subject']}</td>
+                <td>{$row['obtained_mark']}</td>
+                <td>{$row['total_mark']}</td>
+                <td>{$row['status']}</td> <!-- Display Status -->
+              </tr>";
     }
     echo "</table>";
-    echo "<p>Status: {$row['status']}</p>";
 } else {
     echo "No results found";
 }
