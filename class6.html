@@ -4,10 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class 6 - School Management System</title>
+    <style>
+        /* Add the same footer style as in the main page */
+        footer {
+            background-color: #695c97;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #695c97;
+            color: rgb(209, 156, 142);
+            padding: 25px 0;
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slideRight 10s linear infinite;
+            left: 120px;
+        }
+
+        @keyframes slideRight {
+            0% {
+                left: 120px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        nav {
+            background-color: #290808;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        main {
+            padding: 20px;
+            flex: 1; /* Ensures main content takes up remaining space */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .login-box, .insert-box, .result-box {
+            width: 30%;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .result-box {
+            width: 65%;
+        }
+
+        h2 {
+            color: #695c97;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #695c97;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #575757;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #695c97;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Class 6</h1>
+        <img src="images/school-logo.png" class="school-logo">
+        <h1>Rayapur Sayed Abdul Latif Secondary School, Nalchity, Jhalokathi</h1>
     </header>
 
     <nav>
@@ -26,41 +176,130 @@
     </nav>
 
     <main>
-        
-        <section>
-            <h2>Total Running Students</h2>
-            <p>Total Students: <strong>60</strong></p>
-        </section>
+        <!-- Teacher Login Box -->
+        <div class="login-box">
+            <h2>Teacher Login</h2>
+            <form id="login-form" action="class6_php/login.php" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
 
-       
-        <section>
-            <h2>Section-wise Students</h2>
-            <p>Section A: <strong>30</strong></p>
-            <p>Section B: <strong>30</strong></p>
-        </section>
-
-      
-        <section>
-            <h2>Result Search</h2>
-            <form>
-                <label for="student-id">Student ID:</label>
-                <input type="text" id="student-id" name="student-id" placeholder="Enter Student ID" required>
-                <br><br>
-                <label for="exam-criteria">Exam Criteria:</label>
-                <select id="exam-criteria" name="exam-criteria" required>
-                    <option value="">Select Exam</option>
-                    <option value="mid-term">Mid-Term Exam</option>
-                    <option value="final-term">Final-Term Exam</option>
-                    <option value="annual">Annual Exam</option>
+        <!-- Insertion Box (Hidden by default) -->
+        <div class="insert-box" id="insert-box" style="display: none;">
+            <h2>Insert Result</h2>
+            <form id="insert-form" action="class6_php/insert.php" method="POST">
+                <label for="roll">Roll:</label>
+                <input type="text" id="roll" name="roll" placeholder="Enter Roll" required>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter Name" required>
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" placeholder="Enter Subject" required>
+                <label for="obtained-mark">Obtained Mark:</label>
+                <input type="number" id="obtained-mark" name="obtained-mark" placeholder="Enter Obtained Mark" required>
+                <label for="total-mark">Total Mark:</label>
+                <input type="number" id="total-mark" name="total-mark" placeholder="Enter Total Mark" required>
+                <label for="exam-type">Exam Type:</label>
+                <select id="exam-type" name="exam-type" required>
+                    <option value="half-yearly">Half Yearly</option>
+                    <option value="final">Final</option>
                 </select>
-                <br><br>
+                <label for="section">Section:</label>
+                <select id="section" name="section" required>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="passed">Passed</option>
+                    <option value="failed">Failed</option>
+                </select>
+                <button type="submit">Insert</button>
+            </form>
+        </div>
+
+        <!-- Result Box -->
+        <div class="result-box">
+            <h2>Result Search</h2>
+            <form id="result-form" action="class6_php/result.php" method="POST">
+                <label for="exam-criteria">Exam Type:</label>
+                <select id="exam-criteria" name="exam-criteria" required>
+                    <option value="half-yearly">Half Yearly</option>
+                    <option value="final">Final</option>
+                </select>
+                <label for="section-criteria">Section:</label>
+                <select id="section-criteria" name="section-criteria" required>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <label for="roll-criteria">Roll:</label>
+                <input type="text" id="roll-criteria" name="roll-criteria" placeholder="Enter Roll" required>
                 <button type="submit">Search</button>
             </form>
-        </section>
+            <div id="result-display"></div>
+        </div>
     </main>
 
     <footer>
-      
+        <p>&copy; 2023 Rayapur Sayed Abdul Latif Secondary School. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Show insert box if login is successful
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('class6_php/login.php', {
+                method: 'POST',
+                body: new URLSearchParams({ username, password }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    document.getElementById('insert-box').style.display = 'block';
+                } else {
+                    alert('Invalid username or password');
+                }
+            });
+        });
+
+        // Handle insert form submission
+        document.getElementById('insert-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('class6_php/insert.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data); // Show success or error message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // Fetch and display result
+        document.getElementById('result-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('class6_php/result.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result-display').innerHTML = data;
+            });
+        });
+    </script>
 </body>
 </html>
