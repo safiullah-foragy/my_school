@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 6 - School Management System</title>
+    <title>Class 6</title>
+
     <style>
-        /* Add the same footer style as in the main page */
         footer {
             background-color: #695c97;
             color: white;
             text-align: center;
             padding: 20px 0;
-            margin-top: auto; /* Ensures footer stays at the bottom */
+            margin-top: auto;
         }
 
         body {
@@ -82,7 +82,7 @@
 
         main {
             padding: 20px;
-            flex: 1; /* Ensures main content takes up remaining space */
+            flex: 1;
             display: flex;
             justify-content: space-between;
         }
@@ -165,6 +165,189 @@
         .delete-btn:hover {
             background-color: #cc0000;
         }
+
+        footer {
+            background-color: #695c97;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto; 
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #695c97;
+            color: rgb(209, 156, 142);
+            padding: 25px 0;
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slideRight 10s linear infinite;
+            left: 120px;
+        }
+
+        @keyframes slideRight {
+            0% {
+                left: 120px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        nav {
+            background-color: #290808;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        main {
+            padding: 20px;
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .result-box, .login-box, .insert-box, .delete-box, .passed-box, .failed-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .result-box, .passed-box, .failed-box {
+            width: 100%;
+        }
+
+        .login-box, .insert-box, .delete-box {
+            width: 100%;
+        }
+
+        h2 {
+            color: #695c97;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #695c97;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #575757;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #695c97;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+        .result-box h1 {
+            text-align: center;
+            color: #695c97;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -189,7 +372,29 @@
     </nav>
 
     <main>
-        <!-- Teacher Login Box -->
+        <!-- Student Result Search -->
+        <div class="result-box">
+            <h1>Class 6</h1> <!-- Added headline -->
+            <h2>Result Search</h2>
+            <form id="result-form" action="class6_php/result.php" method="POST">
+                <label for="exam-criteria">Exam Type:</label>
+                <select id="exam-criteria" name="exam-criteria" required>
+                    <option value="half-yearly">Half Yearly</option>
+                    <option value="final">Final</option>
+                </select>
+                <label for="section-criteria">Section:</label>
+                <select id="section-criteria" name="section-criteria" required>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <label for="roll-criteria">Roll:</label>
+                <input type="text" id="roll-criteria" name="roll-criteria" placeholder="Enter Roll" required>
+                <button type="submit">Search</button>
+            </form>
+            <div id="result-display"></div>
+        </div>
+
+        <!-- Teacher Login -->
         <div class="login-box">
             <h2>Teacher Login</h2>
             <form id="login-form" action="class6_php/login.php" method="POST">
@@ -201,7 +406,7 @@
             </form>
         </div>
 
-        <!-- Insertion Box (Hidden by default) -->
+        <!-- Insert Result (Hidden by Default) -->
         <div class="insert-box" id="insert-box" style="display: none;">
             <h2>Insert Result</h2>
             <form id="insert-form" action="class6_php/insert.php" method="POST">
@@ -234,7 +439,7 @@
             </form>
         </div>
 
-        <!-- Delete Box (Hidden by default) -->
+        <!-- Delete Result (Hidden by Default) -->
         <div class="delete-box" id="delete-box" style="display: none;">
             <h2>Delete Result</h2>
             <form id="delete-search-form">
@@ -245,25 +450,22 @@
             <div id="delete-result-display"></div>
         </div>
 
-        <!-- Result Box -->
-        <div class="result-box">
-            <h2>Result Search</h2>
-            <form id="result-form" action="class6_php/result.php" method="POST">
-                <label for="exam-criteria">Exam Type:</label>
-                <select id="exam-criteria" name="exam-criteria" required>
-                    <option value="half-yearly">Half Yearly</option>
-                    <option value="final">Final</option>
-                </select>
-                <label for="section-criteria">Section:</label>
-                <select id="section-criteria" name="section-criteria" required>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                </select>
-                <label for="roll-criteria">Roll:</label>
-                <input type="text" id="roll-criteria" name="roll-criteria" placeholder="Enter Roll" required>
-                <button type="submit">Search</button>
+        <!-- Passed Students -->
+        <div class="passed-box" id="passed-box" style="display: none;">
+            <h2>Passed Students</h2>
+            <form action="class6_php/download_passed.php" method="POST">
+                <button type="submit" class="download-btn">Download Passed Students List (PDF)</button>
             </form>
-            <div id="result-display"></div>
+            <div id="passed-students-list"></div>
+        </div>
+
+        <!-- Failed Students -->
+        <div class="failed-box" id="failed-box" style="display: none;">
+            <h2>Failed Students (At Least One Subject)</h2>
+            <form action="class6_php/download_failed.php" method="POST">
+                <button type="submit" class="download-btn">Download Failed Students List (PDF)</button>
+            </form>
+            <div id="failed-students-list"></div>
         </div>
     </main>
 
@@ -272,7 +474,7 @@
     </footer>
 
     <script>
-        // Show insert box if login is successful
+        // Teacher Login Form Submission
         document.getElementById('login-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const username = document.getElementById('username').value;
@@ -288,13 +490,15 @@
                 if (data === 'success') {
                     document.getElementById('insert-box').style.display = 'block';
                     document.getElementById('delete-box').style.display = 'block';
+                    document.getElementById('passed-box').style.display = 'block';
+                    document.getElementById('failed-box').style.display = 'block';
                 } else {
                     alert('Invalid username or password');
                 }
             });
         });
 
-        // Handle insert form submission
+        // Insert Result Form Submission
         document.getElementById('insert-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -305,28 +509,44 @@
             })
             .then(response => response.text())
             .then(data => {
-                alert(data); // Show success or error message
+                alert(data);  
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         });
 
-        // Fetch and display result
+        // Result Search Form Submission
         document.getElementById('result-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
+
             fetch('class6_php/result.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
+                // Clear previous results and buttons
+                document.getElementById('result-display').innerHTML = '';
+
+                // Display the result in the result-display div
                 document.getElementById('result-display').innerHTML = data;
+
+                // Add a button to generate PDF if results are found
+                if (data.includes('<table>')) {
+                    const pdfButton = `<form action="class6_php/generate_pdf.php" method="POST" style="margin-top: 20px;">
+                                        <input type="hidden" name="exam_criteria" value="${formData.get('exam-criteria')}">
+                                        <input type="hidden" name="section_criteria" value="${formData.get('section-criteria')}">
+                                        <input type="hidden" name="roll_criteria" value="${formData.get('roll-criteria')}">
+                                        <button type="submit">Download Result as PDF</button>
+                                      </form>`;
+                    document.getElementById('result-display').insertAdjacentHTML('beforeend', pdfButton);
+                }
             });
         });
 
-        // Fetch and display results for deletion
+        // Delete Result Form Submission
         document.getElementById('delete-search-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const roll = document.getElementById('delete-roll').value;
@@ -342,7 +562,7 @@
             });
         });
 
-        // Handle delete button click
+        // Delete Button Click Handler
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('delete-btn')) {
                 const id = e.target.getAttribute('data-id');
@@ -354,12 +574,26 @@
                     })
                     .then(response => response.text())
                     .then(data => {
-                        alert(data); // Show success or error message
+                        alert(data);  
                         document.getElementById('delete-search-form').dispatchEvent(new Event('submit')); // Refresh the list
                     });
                 }
             }
         });
+
+        // Fetch and Display Passed Students
+        fetch('class6_php/get_passed_students.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('passed-students-list').innerHTML = data;
+            });
+
+        // Fetch and Display Failed Students
+        fetch('class6_php/get_failed_students.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('failed-students-list').innerHTML = data;
+            });
     </script>
 </body>
 </html>

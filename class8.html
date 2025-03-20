@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 8</title>
+    <title>Class 7</title>
+
     <style>
         footer {
             background-color: #695c97;
             color: white;
             text-align: center;
             padding: 20px 0;
-            margin-top: auto; 
+            margin-top: auto;
         }
 
         body {
@@ -81,7 +82,7 @@
 
         main {
             padding: 20px;
-            flex: 1; 
+            flex: 1;
             display: flex;
             justify-content: space-between;
         }
@@ -164,6 +165,189 @@
         .delete-btn:hover {
             background-color: #cc0000;
         }
+
+        footer {
+            background-color: #695c97;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto; 
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #695c97;
+            color: rgb(209, 156, 142);
+            padding: 25px 0;
+            text-align: left;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slideRight 10s linear infinite;
+            left: 120px;
+        }
+
+        @keyframes slideRight {
+            0% {
+                left: 120px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        nav {
+            background-color: #290808;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        main {
+            padding: 20px;
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .result-box, .login-box, .insert-box, .delete-box, .passed-box, .failed-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .result-box, .passed-box, .failed-box {
+            width: 100%;
+        }
+
+        .login-box, .insert-box, .delete-box {
+            width: 100%;
+        }
+
+        h2 {
+            color: #695c97;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #695c97;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #575757;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #695c97;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+        .result-box h1 {
+            text-align: center;
+            color: #695c97;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -187,67 +371,12 @@
         <a href="managing-committee.html">Managing Committee</a>
     </nav>
 
+
     <main>
-        <!-- Teacher Login -->
-        <div class="login-box">
-            <h2>Teacher Login</h2>
-            <form id="login-form" action="class8_php/login.php" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter Username" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter Password" required>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-
-        <!-- Insert Result (Hidden by Default) -->
-        <div class="insert-box" id="insert-box" style="display: none;">
-            <h2>Insert Result</h2>
-            <form id="insert-form" action="class8_php/insert.php" method="POST">
-                <label for="roll">Roll:</label>
-                <input type="text" id="roll" name="roll" placeholder="Enter Roll" required>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter Name" required>
-                <label for="subject">Subject:</label>
-                <input type="text" id="subject" name="subject" placeholder="Enter Subject" required>
-                <label for="obtained-mark">Obtained Mark:</label>
-                <input type="number" id="obtained-mark" name="obtained-mark" placeholder="Enter Obtained Mark" required>
-                <label for="total-mark">Total Mark:</label>
-                <input type="number" id="total-mark" name="total-mark" placeholder="Enter Total Mark" required>
-                <label for="exam-type">Exam Type:</label>
-                <select id="exam-type" name="exam-type" required>
-                    <option value="half-yearly">Half Yearly</option>
-                    <option value="final">Final</option>
-                </select>
-                <label for="section">Section:</label>
-                <select id="section" name="section" required>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                </select>
-                <label for="status">Status:</label>
-                <select id="status" name="status" required>
-                    <option value="passed">Passed</option>
-                    <option value="failed">Failed</option>
-                </select>
-                <button type="submit">Insert</button>
-            </form>
-        </div>
-
-        <!-- Delete Result (Hidden by Default) -->
-        <div class="delete-box" id="delete-box" style="display: none;">
-            <h2>Delete Result</h2>
-            <form id="delete-search-form">
-                <label for="delete-roll">Roll:</label>
-                <input type="text" id="delete-roll" name="delete-roll" placeholder="Enter Roll" required>
-                <button type="submit">Search</button>
-            </form>
-            <div id="delete-result-display"></div>
-        </div>
-
-        <!-- Result Search -->
+        <!-- Student Result Search -->
         <div class="result-box">
-            <h2>Result Search</h2>
-            <form id="result-form" action="class8_php/result.php" method="POST">
+            <h2>Student Result Search</h2>
+            <form id="result-form">
                 <label for="exam-criteria">Exam Type:</label>
                 <select id="exam-criteria" name="exam-criteria" required>
                     <option value="half-yearly">Half Yearly</option>
@@ -258,12 +387,56 @@
                     <option value="A">A</option>
                     <option value="B">B</option>
                 </select>
-                <label for="roll-criteria">Roll:</label>
-                <input type="text" id="roll-criteria" name="roll-criteria" placeholder="Enter Roll" required>
-                <button type="submit">Search</button>
+                <label for="roll-criteria">Roll Number:</label>
+                <input type="text" id="roll-criteria" name="roll-criteria" required>
+                <button type="submit">Search Result</button>
             </form>
             <div id="result-display"></div>
         </div>
+
+        <!-- Teacher Login -->
+        <div class="login-box">
+            <h2>Teacher Login</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Insert Result (Initially hidden) -->
+        <div class="insert-box" id="insert-box" style="display: none;">
+            <h2>Insert Student Result</h2>
+            <form id="insert-form">
+                <!-- Insert form fields -->
+            </form>
+        </div>
+
+        <!-- Delete Result Section (Initially hidden) -->
+        <div class="delete-box" id="delete-box" style="display: none;">
+            <h2>Delete Student Result</h2>
+            <form id="delete-search-form">
+                <label for="delete-exam-criteria">Exam Type:</label>
+                <select id="delete-exam-criteria" required>
+                    <option value="half-yearly">Half Yearly</option>
+                    <option value="final">Final</option>
+                </select>
+                <label for="delete-section-criteria">Section:</label>
+                <select id="delete-section-criteria" required>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <label for="delete-roll">Roll Number:</label>
+                <input type="text" id="delete-roll" required>
+                <button type="submit">Search Record</button>
+            </form>
+            <div id="delete-result-display"></div>
+        </div>
+
+        <!-- Passed/Failed Students Sections -->
+        <!-- ... (similar structure for other sections) ... -->
     </main>
 
     <footer>
@@ -271,106 +444,80 @@
     </footer>
 
     <script>
-        // Teacher Login Form Submission
-        document.getElementById('login-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            fetch('class8_php/login.php', {
-                method: 'POST',
-                body: new URLSearchParams({ username, password }),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (data === 'success') {
-                    document.getElementById('insert-box').style.display = 'block';
-                    document.getElementById('delete-box').style.display = 'block';
-                } else {
-                    alert('Invalid username or password');
-                }
-            });
-        });
-
-        // Insert Result Form Submission
-        document.getElementById('insert-form').addEventListener('submit', function (e) {
+        // Teacher Login Handling
+        document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-
-            fetch('class8_php/insert.php', {
+            
+            fetch('class8_php/login.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
-                alert(data);  
-            })
-            .catch(error => {
-                console.error('Error:', error);
+                if (data === 'success') {
+                    // Show protected sections
+                    document.querySelectorAll('.insert-box, .delete-box, .passed-box, .failed-box')
+                           .forEach(el => el.style.display = 'block');
+                } else {
+                    alert('Login failed. Please check credentials.');
+                }
             });
         });
 
-        // Result Search Form Submission
-        document.getElementById('result-form').addEventListener('submit', function (e) {
+        // Result Search Handling
+        document.getElementById('result-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(this);
-
+            const formData = new URLSearchParams(new FormData(this));
+            
             fetch('class8_php/result.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
-            .then(data => {
-                // Clear previous results and buttons
-                document.getElementById('result-display').innerHTML = '';
-
-                // Display the result in the result-display div
-                document.getElementById('result-display').innerHTML = data;
-
-                // Add a button to generate PDF if results are found
-                if (data.includes('<table>')) {
-                    const pdfButton = `<form action="class8_php/generate_pdf.php" method="POST" style="margin-top: 20px;">
-                                        <input type="hidden" name="exam_criteria" value="${formData.get('exam-criteria')}">
-                                        <input type="hidden" name="section_criteria" value="${formData.get('section-criteria')}">
-                                        <input type="hidden" name="roll_criteria" value="${formData.get('roll-criteria')}">
-                                        <button type="submit">Download Result as PDF</button>
-                                      </form>`;
-                    document.getElementById('result-display').insertAdjacentHTML('beforeend', pdfButton);
-                }
+            .then(html => {
+                document.getElementById('result-display').innerHTML = html;
             });
         });
 
-        
-        document.getElementById('delete-search-form').addEventListener('submit', function (e) {
+        // Delete Record Handling
+        document.getElementById('delete-search-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const roll = document.getElementById('delete-roll').value;
-
+            const formData = new URLSearchParams({
+                examCriteria: document.getElementById('delete-exam-criteria').value,
+                sectionCriteria: document.getElementById('delete-section-criteria').value,
+                roll: document.getElementById('delete-roll').value
+            });
+            
             fetch('class8_php/fetch_results.php', {
                 method: 'POST',
-                body: new URLSearchParams({ roll }),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                body: formData
             })
             .then(response => response.text())
-            .then(data => {
-                document.getElementById('delete-result-display').innerHTML = data;
+            .then(html => {
+                document.getElementById('delete-result-display').innerHTML = html;
             });
         });
 
         // Delete Button Click Handler
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             if (e.target.classList.contains('delete-btn')) {
-                const id = e.target.getAttribute('data-id');
-                if (confirm('Are you sure you want to delete this record?')) {
+                const row = e.target.closest('tr');
+                const data = {
+                    roll: row.dataset.roll,
+                    examType: row.dataset.examType,
+                    section: row.dataset.section
+                };
+
+                if (confirm('Permanently delete this record?')) {
                     fetch('class8_php/delete.php', {
                         method: 'POST',
-                        body: new URLSearchParams({ id }),
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                        body: new URLSearchParams(data)
                     })
                     .then(response => response.text())
-                    .then(data => {
-                        alert(data);  
-                        document.getElementById('delete-search-form').dispatchEvent(new Event('submit')); // Refresh the list
+                    .then(message => {
+                        alert(message);
+                        document.getElementById('delete-search-form').dispatchEvent(new Event('submit'));
                     });
                 }
             }
