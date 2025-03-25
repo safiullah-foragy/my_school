@@ -1,42 +1,86 @@
 <?php
-// delete.php
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+    die('Unauthorized access');
+}
 
-// Database connection
 $servername = "localhost";
-$username = "root"; // Replace with your database username
-$password = ""; // Replace with your database password
-$dbname = "school_db"; // Replace with your database name
+$username = "root";
+$password = "";
+$dbname = "class6";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the request method is POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the ID of the record to delete
-    $id = $_POST['id'];
-
-    // Prepare and execute the delete query
-    $sql = "DELETE FROM class9_results WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-
-    if ($stmt->execute()) {
-        echo "Record deleted successfully!";
+// Handle record deletion
+if (isset($_POST['delete-id'])) {
+    $id = $conn->real_escape_string($_POST['delete-id']);
+    $sql = "DELETE FROM results9 WHERE id='$id'";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "Record deleted successfully";
     } else {
-        echo "Error deleting record: " . $stmt->error;
+        echo "Error deleting record: " . $conn->error;
     }
-
-    // Close the statement
-    $stmt->close();
-} else {
-    echo "Invalid request method.";
+    $conn->close();
+    exit;
 }
 
-// Close the database connection
+// Handle record search
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['roll'])) {
+    $roll = $conn->real_escape_string($_POST['roll']);
+    $exam_type = $conn->real_escape_string($_POST['exam-type'] ?? '');
+    $section = $conn->real_escape_string($_POST['section'] ?? '');
+
+    $sql = "SELECT * FROM results9 WHERE roll='$roll'";
+    
+    if (!empty($exam_type)) {
+        $sql .= " AND exam_type='$exam_type'";
+    }
+    
+    if (!empty($section)) {
+        $sql .= " AND section='$section'";
+    }
+
+    $result = $conn->query($sql);
+
+    if ($result === FALSE) {
+        echo "<div class='error'>Query error: " . $conn->error . "</div>";
+    } elseif ($result->num_rows > 0) {
+        echo "<table class='results-table'>";
+        echo "<tr>
+                <th>Roll</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Exam Type</th>
+                <th>Section</th>
+                <th>Action</th>
+              </tr>";
+        
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>
+                    <td>".htmlspecialchars($row['roll'])."</td>
+                    <td>".htmlspecialchars($row['name'])."</td>
+                    <td>".htmlspecialchars($row['subject'])."</td>
+                    <td>".htmlspecialchars($row['obtained_mark'])."/".htmlspecialchars($row['total_mark'])."</td>
+                    <td>".htmlspecialchars($row['exam_type'])."</td>
+                    <td>".htmlspecialchars($row['section'])."</td>
+                    <td><button class='delete-btn' data-id='".htmlspecialchars($row['id'])."'>Delete</button></td>
+                  </tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "<div class='no-results'>No results found for:";
+        echo "<br>Roll: ".htmlspecialchars($roll);
+        if (!empty($exam_type)) echo "<br>Exam Type: ".htmlspecialchars($exam_type);
+        if (!empty($section)) echo "<br>Section: ".htmlspecialchars($section);
+        echo "</div>";
+    }
+}
+
 $conn->close();
 ?>

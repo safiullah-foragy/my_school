@@ -1,5 +1,9 @@
 <?php
-// Enable error reporting
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+    die('Unauthorized access');
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -7,7 +11,7 @@ ini_set('display_errors', 1);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "class8"; // Updated to class8 as per your requirement
+$dbname = "class6";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -15,48 +19,65 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get exam criteria and section criteria from the POST request
-$examCriteria = $_POST['exam-criteria'] ?? ''; // Default to empty if not provided
-$sectionCriteria = $_POST['section-criteria'] ?? ''; // Default to empty if not provided
+// Get filter criteria
+$exam_type = $conn->real_escape_string($_POST['exam-type'] ?? '');
+$section = $conn->real_escape_string($_POST['section'] ?? '');
 
-// Fetch students who failed at least one subject for the selected exam and section
-$sql = "SELECT DISTINCT roll, name 
-        FROM results8 
-        WHERE status = 'failed' 
-        AND exam_criteria = ? 
-        AND section_criteria = ?";
+// Fetch students who failed at least one subject
+$sql = "SELECT DISTINCT r.roll, r.name 
+        FROM results8 r
+        WHERE r.exam_type = '$exam_type' 
+        AND r.section = '$section'
+        AND EXISTS (
+            SELECT 1 FROM results8 
+            WHERE roll = r.roll 
+            AND exam_type = r.exam_type 
+            AND section = r.section 
+            AND status = 'failed'
+        )
+        ORDER BY r.roll";
 
-// Prepare the SQL statement
-$stmt = $conn->prepare($sql);
-if ($stmt === false) {
-    die("Error preparing statement: " . $conn->error);
-}
-
-// Bind the parameters
-$stmt->bind_param("ss", $examCriteria, $sectionCriteria);
-
-// Execute the query
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<table border='1'>
-            <tr>
-                <th>Roll</th>
-                <th>Name</th>
-            </tr>";
+    echo "<table class='failed-students-table'>
+            <thead>
+                <tr>
+                    <th>Roll</th>
+                    <th>Name</th>
+                    <th>Section</th>
+                    <th>Exam Type</th>
+                    <th>Failed Subjects</th>
+                </tr>
+            </thead>
+            <tbody>";
+    
     while ($row = $result->fetch_assoc()) {
+        // Count failed subjects for each student
+        $count_sql = "SELECT COUNT(*) as failed_count 
+                      FROM results8 
+                      WHERE roll = '{$row['roll']}' 
+                      AND exam_type = '$exam_type' 
+                      AND section = '$section' 
+                      AND status = 'failed'";
+        $count_result = $conn->query($count_sql);
+        $failed_count = $count_result->fetch_assoc()['failed_count'];
+        
         echo "<tr>
-                <td>" . $row['roll'] . "</td>
-                <td>" . $row['name'] . "</td>
+                <td>" . htmlspecialchars($row['roll']) . "</td>
+                <td>" . htmlspecialchars($row['name']) . "</td>
+                <td>" . htmlspecialchars($section) . "</td>
+                <td>" . htmlspecialchars(ucfirst(str_replace('-', ' ', $exam_type))) . "</td>
+                <td>" . htmlspecialchars($failed_count) . "</td>
               </tr>";
     }
-    echo "</table>";
+    
+    echo "</tbody></table>";
 } else {
-    echo "No failed students found for the selected criteria.";
+    echo "<div class='no-results'>No failed students found for " . 
+         htmlspecialchars(ucfirst(str_replace('-', ' ', $exam_type))) . 
+         " exam in section " . htmlspecialchars($section) . ".</div>";
 }
 
-// Close the statement and connection
-$stmt->close();
 $conn->close();
 ?>

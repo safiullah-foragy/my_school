@@ -1,16 +1,19 @@
 <?php
-// Enable error reporting
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+    die('Unauthorized access');
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include FPDF library
 require('fpdf.php');
 
 // Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "class8"; // Updated to class8 as per your requirement
+$dbname = "class6";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -18,98 +21,91 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get exam criteria and section criteria from the POST request
-$examCriteria = $_POST['exam-criteria'] ?? ''; // Default to empty if not provided
-$sectionCriteria = $_POST['section-criteria'] ?? ''; // Default to empty if not provided
+// Get filter criteria from POST
+$exam_type = $conn->real_escape_string($_POST['exam-type'] ?? '');
+$section = $conn->real_escape_string($_POST['section'] ?? '');
 
-// Fetch passed students for the selected exam and section
-$sql = "SELECT DISTINCT roll, name 
-        FROM results8 
-        WHERE status = 'passed' 
-        AND exam_criteria = ? 
-        AND section_criteria = ?";
-
-// Prepare the SQL statement
-$stmt = $conn->prepare($sql);
-if ($stmt === false) {
-    die("Error preparing statement: " . $conn->error);
+// Validate inputs
+if (empty($exam_type) || empty($section)) {
+    die("Please provide exam type and section");
 }
 
-// Bind the parameters
-$stmt->bind_param("ss", $examCriteria, $sectionCriteria);
+// Fetch passed students (those with no failed subjects)
+$sql = "SELECT DISTINCT r.roll, r.name 
+        FROM results8 r
+        WHERE r.exam_type = '$exam_type' 
+        AND r.section = '$section'
+        AND NOT EXISTS (
+            SELECT 1 FROM results8 
+            WHERE roll = r.roll 
+            AND exam_type = r.exam_type 
+            AND section = r.section 
+            AND status = 'failed'
+        )
+        ORDER BY r.roll";
 
-// Execute the query
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $conn->query($sql);
 
 // Create PDF
 $pdf = new FPDF();
 $pdf->AddPage();
 
-// Add school logo (top left)
-$pdf->Image('school-logo.png', 10, 10, 30); // Adjust path and dimensions as needed
-
-// Add school name (top center)
+// School Header
+if (file_exists('school-logo.png')) {
+    $pdf->Image('school-logo.png', 10, 10, 30);
+}
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(0, 10, 'Rayapur Sayed Abdul Latif Secondary School', 0, 1, 'C');
 
 // Add space (3 lines)
-$pdf->Ln(15); // 15 units of space (approximately 3 lines)
+$pdf->Ln(15);
 
-// Add "Result of Class 8" heading
+// Exam Info
+$exam_types = [
+    'half-yearly' => 'Half Yearly',
+    'final' => 'Final',
+    'test-exam' => 'Test Exam'
+];
 $pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(0, 10, 'Result of Class 8', 0, 1, 'C');
-
-// Add "Result of Section (A/B)" heading
-$pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(0, 10, 'Result of Section ' . $sectionCriteria, 0, 1, 'C');
-
-// Add "Exam Type" heading
-$pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(0, 10, 'Exam Type: ' . ucfirst($examCriteria), 0, 1, 'C');
-
-// Add space (1 line)
-$pdf->Ln(5);
-
-// Set font for the table
+$pdf->Cell(0, 10, 'Class 8 Passed Students', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 12);
+$pdf->Cell(0, 10, 'Section: ' . $section, 0, 1, 'C');
+$pdf->Cell(0, 10, 'Exam: ' . ($exam_types[$exam_type] ?? $exam_type), 0, 1, 'C');
 
-// Define table width and position
-$tableWidth = 100; // Total width of the table
-$leftMargin = ($pdf->GetPageWidth() - $tableWidth) / 2; // Center the table
+// Add space before table
+$pdf->Ln(15);
 
-// Create table header
-$pdf->SetX($leftMargin); // Set X position to center the table
-$pdf->Cell(40, 10, 'Roll', 1);
-$pdf->Cell(60, 10, 'Name', 1);
-$pdf->Ln();
+// Table Header
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(40, 10, 'Roll', 1, 0, 'C');  // Increased width
+$pdf->Cell(100, 10, 'Name', 1, 0, 'C'); // Increased width
+$pdf->Cell(50, 10, 'Status', 1, 1, 'C'); // Increased width
 
-// Add table rows and count the number of students
-$totalStudents = 0;
+// Table Content
+$pdf->SetFont('Arial', '', 12);
+$totalPassed = 0;
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $pdf->SetX($leftMargin); // Set X position to center the table
         $pdf->Cell(40, 10, $row['roll'], 1);
-        $pdf->Cell(60, 10, $row['name'], 1);
-        $pdf->Ln();
-        $totalStudents++; // Increment the student count
+        $pdf->Cell(100, 10, '   ' . $row['name'], 1); // Added 3 spaces before name
+        $pdf->Cell(50, 10, 'Passed', 1, 1, 'C');
+        $totalPassed++;
     }
 } else {
-    $pdf->SetX($leftMargin); // Set X position to center the table
-    $pdf->Cell(100, 10, 'No passed students found.', 1, 1, 'C');
+    $pdf->Cell(190, 10, 'No passed students found', 1, 1, 'C');
 }
 
-// Add "Total Passed" row
-$pdf->SetX($leftMargin); // Set X position to center the table
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Total Passed', 1); // "Total Passed" in the Roll column
-$pdf->Cell(60, 10, $totalStudents, 1); // Total number in the Name column
-$pdf->Ln();
+// Add space before total count
+$pdf->Ln(5);
 
-// Close the statement and connection
-$stmt->close();
+// Total Passed Count
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(140, 10, 'Total Passed Students:', 1);
+$pdf->Cell(50, 10, $totalPassed, 1, 1, 'C');
+
 $conn->close();
 
 // Output PDF
-$pdf->Output('D', 'passed_students.pdf');
+$pdf->Output('D', "Passed_Students_".$section."_".$exam_type.".pdf");
 ?>

@@ -29,7 +29,6 @@ $exam_type = $_POST['exam-type'];
 $section = $_POST['section'];
 $status = $_POST['status'];
 
-
 $sql = "INSERT INTO results6 (roll, name, subject, obtained_mark, total_mark, exam_type, section, status)
         VALUES ('$roll', '$name', '$subject', '$obtained_mark', '$total_mark', '$exam_type', '$section', '$status')";
 

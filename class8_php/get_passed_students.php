@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "class8"; // Updated to class8 as per your requirement
+$dbname = "class6";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -15,48 +15,47 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get exam criteria and section criteria from the POST request
-$examCriteria = $_POST['exam-criteria'] ?? ''; // Default to empty if not provided
-$sectionCriteria = $_POST['section-criteria'] ?? ''; // Default to empty if not provided
+// Get filter criteria
+$exam_type = $conn->real_escape_string($_POST['exam-type'] ?? '');
+$section = $conn->real_escape_string($_POST['section'] ?? '');
 
-// Fetch students who passed all subjects for the selected exam and section
+// Fetch students who passed all subjects in the selected exam and section
 $sql = "SELECT roll, name 
         FROM results8 
-        WHERE exam_criteria = ? AND section_criteria = ?
+        WHERE exam_type = '$exam_type' AND section = '$section'
         GROUP BY roll, name 
-        HAVING SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) = 0";
+        HAVING SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) = 0
+        ORDER BY roll";
 
-// Prepare the SQL statement
-$stmt = $conn->prepare($sql);
-if ($stmt === false) {
-    die("Error preparing statement: " . $conn->error);
-}
-
-// Bind the parameters
-$stmt->bind_param("ss", $examCriteria, $sectionCriteria);
-
-// Execute the query
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<table border='1'>
-            <tr>
-                <th>Roll</th>
-                <th>Name</th>
-            </tr>";
+    echo "<table class='passed-students-table'>
+            <thead>
+                <tr>
+                    <th>Roll</th>
+                    <th>Name</th>
+                    <th>Section</th>
+                    <th>Exam Type</th>
+                </tr>
+            </thead>
+            <tbody>";
+    
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
-                <td>" . $row['roll'] . "</td>
-                <td>" . $row['name'] . "</td>
+                <td>" . htmlspecialchars($row['roll']) . "</td>
+                <td>" . htmlspecialchars($row['name']) . "</td>
+                <td>" . htmlspecialchars($section) . "</td>
+                <td>" . htmlspecialchars(ucfirst(str_replace('-', ' ', $exam_type))) . "</td>
               </tr>";
     }
-    echo "</table>";
+    
+    echo "</tbody></table>";
 } else {
-    echo "No passed students found for the selected criteria.";
+    echo "<div class='no-results'>No passed students found for " . 
+         htmlspecialchars(ucfirst(str_replace('-', ' ', $exam_type))) . 
+         " exam in section " . htmlspecialchars($section) . ".</div>";
 }
 
-// Close the statement and connection
-$stmt->close();
 $conn->close();
 ?>

@@ -1,8 +1,13 @@
 <?php
-error_reporting(E_ALL); // Enable error reporting
-ini_set('display_errors', 1); // Display errors
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+    die('Unauthorized access');
+}
 
-require('fpdf.php'); // Include FPDF library
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require('fpdf.php');
 
 // Database connection
 $servername = "localhost";
@@ -17,79 +22,93 @@ if ($conn->connect_error) {
 }
 
 // Get search criteria from POST data
-$exam_criteria = $_POST['exam_criteria'];
-$section_criteria = $_POST['section_criteria'];
-$roll_criteria = $_POST['roll_criteria'];
+$exam_criteria = $conn->real_escape_string($_POST['exam_criteria'] ?? '');
+$section_criteria = $conn->real_escape_string($_POST['section_criteria'] ?? '');
+$roll_criteria = $conn->real_escape_string($_POST['roll_criteria'] ?? '');
+
+// Validate inputs
+if (empty($roll_criteria) || empty($exam_criteria) || empty($section_criteria)) {
+    die("Please provide all search criteria");
+}
 
 // Fetch results from the database
-$sql = "SELECT * FROM results7 WHERE exam_type='$exam_criteria' AND section='$section_criteria' AND roll='$roll_criteria'";
+$sql = "SELECT * FROM results7 
+        WHERE exam_type='$exam_criteria' 
+        AND section='$section_criteria' 
+        AND roll='$roll_criteria'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // Fetch the first row for student details
     $first_row = $result->fetch_assoc();
-    $student_name = $first_row['name'];
-    $student_roll = $first_row['roll'];
-
+    
     // Create PDF
     $pdf = new FPDF();
     $pdf->AddPage();
-
-    // Add school logo (top left)
-    $pdf->Image('school-logo.png', 10, 10, 30); // Adjust path and dimensions as needed
     
-    // School Name (centered)
+    // Set font for the entire document
+    $pdf->SetFont('Arial', '', 12);
+    
+    // School Header
+    if (file_exists('school-logo.png')) {
+        $pdf->Image('school-logo.png', 10, 10, 30);
+    }
     $pdf->SetFont('Arial', 'B', 16);
     $pdf->Cell(0, 10, 'Rayapur Sayed Abdul Latif Secondary School', 0, 1, 'C');
-    
-    // Add space (3 lines)
-    $pdf->Ln(15);
-
-    // Exam & Section Info
     $pdf->SetFont('Arial', 'B', 14);
-    $pdf->Cell(0, 10, "Result of Class 6", 0, 1, 'C');
-    $pdf->Cell(0, 10, "Result of Section ($section_criteria)", 0, 1, 'C');
+    $pdf->Cell(0, 10, 'Class 7 Examination Results', 0, 1, 'C');
+    $pdf->Ln(10);
     
-    // Add space (1 line)
+    // Exam Info
+    $exam_types = [
+        'half-yearly' => 'Half Yearly',
+        'final' => 'Final',
+        'test-exam' => 'Test Exam'
+    ];
+    $pdf->Cell(0, 10, 'Exam: ' . ($exam_types[$exam_criteria] ?? $exam_criteria), 0, 1);
+    $pdf->Cell(0, 10, 'Section: ' . $section_criteria, 0, 1);
     $pdf->Ln(5);
-
-    // Student Name and Roll
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, "Name: $student_name", 0, 1);
-    $pdf->Cell(0, 10, "Roll: $student_roll", 0, 1);
     
-    // Add space before table
-    $pdf->Ln(5);
-    
-    // Result Sheet Header
+    // Student Information
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(40, 10, 'Subject', 1);
-    $pdf->Cell(40, 10, 'Obtained Mark', 1);
-    $pdf->Cell(40, 10, 'Total Mark', 1);
-    $pdf->Cell(40, 10, 'Status', 1);
-    $pdf->Ln();
-
-    // Add the first row to the PDF
+    $pdf->Cell(30, 10, 'NAME:', 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(40, 10, $first_row['subject'], 1);
-    $pdf->Cell(40, 10, $first_row['obtained_mark'], 1);
-    $pdf->Cell(40, 10, $first_row['total_mark'], 1);
-    $pdf->Cell(40, 10, $first_row['status'], 1);
-    $pdf->Ln();
-
-    // Add the remaining rows to the PDF
+    $pdf->Cell(0, 10, $first_row['name'], 0, 1);
+    
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(30, 10, 'ROLL:', 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, $first_row['roll'], 0, 1);
+    $pdf->Ln(10);
+    
+    // Results Table Header
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(60, 10, 'SUBJECT', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'OBTAINED MARKS', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'TOTAL MARKS', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'STATUS', 1, 1, 'C');
+    
+    // Add first result
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(60, 10, $first_row['subject'], 1);
+    $pdf->Cell(40, 10, $first_row['obtained_mark'], 1, 0, 'C');
+    $pdf->Cell(40, 10, $first_row['total_mark'], 1, 0, 'C');
+    $pdf->Cell(40, 10, ucfirst($first_row['status']), 1, 1, 'C');
+    
+    // Add remaining results
     while ($row = $result->fetch_assoc()) {
-        $pdf->Cell(40, 10, $row['subject'], 1);
-        $pdf->Cell(40, 10, $row['obtained_mark'], 1);
-        $pdf->Cell(40, 10, $row['total_mark'], 1);
-        $pdf->Cell(40, 10, $row['status'], 1);
-        $pdf->Ln();
+        $pdf->Cell(60, 10, $row['subject'], 1);
+        $pdf->Cell(40, 10, $row['obtained_mark'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $row['total_mark'], 1, 0, 'C');
+        $pdf->Cell(40, 10, ucfirst($row['status']), 1, 1, 'C');
     }
-
+    
     // Output PDF for download
-    $pdf->Output('D', "Result_$student_roll.pdf");
+    $pdf->Output('D', "Result_".$first_row['roll'].".pdf");
 } else {
-    echo "No results found";
+    // If no results found, return JSON response
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'No results found']);
 }
 
 $conn->close();

@@ -15,50 +15,46 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if section and examType are provided in the request
-$section = isset($_POST['section']) ? $_POST['section'] : null;
-$examType = isset($_POST['examType']) ? $_POST['examType'] : null;
+// Get filter criteria
+$exam_type = $conn->real_escape_string($_POST['exam-type'] ?? '');
+$section = $conn->real_escape_string($_POST['section'] ?? '');
 
-// Build the SQL query based on the provided filters
+// Fetch students who passed all subjects in the selected exam and section
 $sql = "SELECT roll, name 
         FROM results9 
-        WHERE 1=1"; // Start with a condition that is always true
+        WHERE exam_type = '$exam_type' AND section = '$section'
+        GROUP BY roll, name 
+        HAVING SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) = 0
+        ORDER BY roll";
 
-// Add filters for section and examType if provided
-if ($section) {
-    $sql .= " AND section = '$section'";
-}
-if ($examType) {
-    $sql .= " AND exam_type = '$examType'";
-}
-
-// Group by roll and name, and filter students who passed all subjects
-$sql .= " GROUP BY roll, name 
-          HAVING SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) = 0";
-
-// Execute the query
 $result = $conn->query($sql);
 
-if (!$result) {
-    die("Query failed: " . $conn->error);
-}
-
 if ($result->num_rows > 0) {
-    // Display the results in a table
-    echo "<table border='1'>
-            <tr>
-                <th>Roll</th>
-                <th>Name</th>
-            </tr>";
+    echo "<table class='passed-students-table'>
+            <thead>
+                <tr>
+                    <th>Roll</th>
+                    <th>Name</th>
+                    <th>Section</th>
+                    <th>Exam Type</th>
+                </tr>
+            </thead>
+            <tbody>";
+    
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
                 <td>" . htmlspecialchars($row['roll']) . "</td>
                 <td>" . htmlspecialchars($row['name']) . "</td>
+                <td>" . htmlspecialchars($section) . "</td>
+                <td>" . htmlspecialchars(ucfirst(str_replace('-', ' ', $exam_type))) . "</td>
               </tr>";
     }
-    echo "</table>";
+    
+    echo "</tbody></table>";
 } else {
-    echo "No passed students found for the selected criteria.";
+    echo "<div class='no-results'>No passed students found for " . 
+         htmlspecialchars(ucfirst(str_replace('-', ' ', $exam_type))) . 
+         " exam in section " . htmlspecialchars($section) . ".</div>";
 }
 
 $conn->close();
