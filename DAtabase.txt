@@ -1,0 +1,28 @@
+ class 6-9 skema
+
+ CREATE TABLE results8 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roll VARCHAR(10) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    subject VARCHAR(50) NOT NULL,
+    obtained_mark INT NOT NULL,
+    total_mark INT NOT NULL,
+    exam_type VARCHAR(20) NOT NULL,
+    section VARCHAR(1) NOT NULL,
+    status VARCHAR(10) NOT NULL
+);
+
+
+
+
+CREATE TABLE teachers8 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL
+);
+
+
+    INSERT INTO teachers8 (username, password_hash)
+    VALUES ('admin', '$2y$10$cW4R8sh1gQ.2qw6gNWWIQeKlD5QsCy6tKnnSyXBHfyDJyTOpNVvly');
+
+
